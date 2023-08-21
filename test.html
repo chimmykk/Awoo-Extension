@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Picture Grid</title>
+  <style>
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-gap: 5px; /* Adjust the gap as per your preference */
+    }
+
+    .box {
+      width: 200px;
+      height: 150px;
+      border: 1px solid black;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .box img {
+      max-width: 100%;
+      max-height: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div class="grid">
+    <div class="box" onpaste="handlePaste(event)"></div>
+    <div class="box" onpaste="handlePaste(event)"></div>
+    <div class="box" onpaste="handlePaste(event)"></div>
+    <div class="box" onpaste="handlePaste(event)"></div>
+    <div class="box" onpaste="handlePaste(event)"></div>
+    <div class="box" onpaste="handlePaste(event)"></div>
+  </div>
+
+  <script>
+    const boxes = Array.from(document.getElementsByClassName('box'));
+
+    function handlePaste(event) {
+      const items = (event.clipboardData || event.originalEvent.clipboardData).items;
+      for (const item of items) {
+        if (item.type.indexOf('image') !== -1) {
+          const blob = item.getAsFile();
+          const reader = new FileReader();
+          reader.onload = function (event) {
+            const box = getEmptyBox();
+            if (box) {
+              box.innerHTML = `<img src="${event.target.result}" alt="Pasted Image">`;
+            }
+          };
+          reader.readAsDataURL(blob);
+        }
+      }
+    }
+
+    function getEmptyBox() {
+      for (const box of boxes) {
+        if (!box.innerHTML.trim()) {
+          return box;
+        }
+      }
+      return null;
+    }
+  </script>
+</body>
+</html>

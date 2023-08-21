@@ -1,0 +1,12 @@
+{
+    "files": {
+      "contentScript.js": "/static/js/contentScript.js",
+      "main.css": "/static/css/style.css",
+      "index.html": "/index.html"
+    
+    },
+    "entrypoints": [
+      "static/js/contentScript.js",
+      "static/css/style.css"
+    ]
+  }
