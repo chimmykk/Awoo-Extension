@@ -480,7 +480,7 @@ function setDoge() {
             }
     
             try {
-                const response = await fetch('http://localhost:3000/api/generate-doge', {
+                const response = await fetch('https://mintpad-ape-terminal.onrender.com/api/generate-doge', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ 
