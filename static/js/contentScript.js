@@ -17,43 +17,43 @@ function setDoge() {
             alert("Doge already exists!");
         }
     });
-  }
-  
-  // Functions for username flag
-  function setUsernameset() {
-    chrome.storage.sync.set({ 'usernameset': 1 }, () => {
+}
+
+// Functions for username flag
+function setUsernameset() {
+    chrome.storage.local.set({ 'usernameset': 1 }, () => {  // Changed from sync to local
         console.log('Username flag set to 1');
         alert("Reply With Username ON!");
     });
-  }
-  
-  function deleteUsernameset() {
-    chrome.storage.sync.remove('usernameset', () => {
+}
+
+function deleteUsernameset() {
+    chrome.storage.local.remove('usernameset', () => {  // Changed from sync to local
         console.log('Username flag removed');
         alert("Reply With Username OFF!");
     });
-  }
-  
-  // Function to reset Doge Numbers
-  function resetDoge() {
+}
+
+// Function to reset Doge Numbers
+function resetDoge() {
     chrome.storage.local.remove("DogeNumbers", () => {
         console.log("All DogeNumbers removed");
         alert("Doge reset!");
     });
-  }
-  
-  // Event listeners for popup buttons
-  document.addEventListener("DOMContentLoaded", function() {
+}
+
+// Event listeners for popup buttons
+document.addEventListener("DOMContentLoaded", function() {
     const setDogeButton = document.querySelector("#setDogeButton");
     const resetDogeButton = document.querySelector("#resetDogeButton");
     const setUsernameButton = document.querySelector("#setUsernameButton");
     const offusernamebutton = document.querySelector("#offusernamebutton");
-  
+
     setDogeButton?.addEventListener("click", setDoge);
     resetDogeButton?.addEventListener("click", resetDoge);
     setUsernameButton?.addEventListener("click", setUsernameset);
     offusernamebutton?.addEventListener("click", deleteUsernameset);
-  });
+});
   
   // Function to add GM/GN buttons to tweets
   function addButtonToTweet(tweet) {
@@ -481,6 +481,7 @@ function setDoge() {
     
             try {
                 const response = await fetch('https://mintpad-ape-terminal.onrender.com/api/generate-doge', {
+                    
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ 
